@@ -57,3 +57,69 @@ def oneNorm(matrix_string, size):
 
     norm = max(col_sums)
     return norm # an int
+
+
+
+def extractNumbers_NoFormat_Square(output_string, size, style):
+    # delete space character element
+    temp_list = output_string.split('\n') #['myAwesomeMatrix Test 5', '1 0', '3 1', '']
+    temp_list =  [i for i in temp_list if i] #['myAwesomeMatrix Test 5', '1 0', '3 1']
+    temp_list = temp_list[1:]  #TODO: check final grading need print the test name or not
+    # temp_list.remove("")
+    style_pass = False
+    
+    element_list = []
+    # compostite the result to list of list
+    for r in range(size):
+        row_i = []
+        row_list_temp = temp_list[r].strip().split(' ')
+        
+        print(r)
+        print(row_list_temp)
+        for c in range(size):
+            
+            print(type(row_list_temp[c]))
+            row_i.append(int(row_list_temp[c]))
+        element_list.append(row_i)
+    
+    if style == 'symmetric':
+        fail_count = 0
+        for r in range(size):
+            for c in range(size):
+                if r != c:
+                    if (element_list[r][c] != element_list[c][r]):
+                        fail_count +=1
+    
+    elif style == 'upper':
+        fail_count = 0
+        for r in range(size):
+            for c in range(size):
+                if r > c:
+                    if (element_list[r][c] != 0):
+                        fail_count +=1
+    elif style == 'lower':
+        fail_count = 0
+        for r in range(size):
+            for c in range(size):
+                if r < c:
+                    if (element_list[r][c] != 0):
+                        fail_count +=1
+                        
+    elif style == 'diagonal':
+        fail_count = 0
+        for r in range(size):
+            for c in range(size):
+                if r != c:
+                    if (element_list[r][c] != 0):
+                        fail_count +=1
+    else:
+        regular_dum = 1
+        
+    return fail_count
+    
+    
+if __name__ == '__main__':
+    a = 1
+    output_string = 'myAwesomeMatrix Test 5\n 1 0 \n 3 1 \n'
+    extractNumbers_NoFormat_Square(output_string, 2, 'lower')
+    
